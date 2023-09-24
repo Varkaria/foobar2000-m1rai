@@ -15,7 +15,7 @@ impl Handler for ResponseBody {
 // TODO: Use the image crate to resize/compress an image when its size exceeds a specified threshold.
 
 fn main() {
-    const URL: &str = "https://catbox.moe/user/api.php";
+    const URL: &str = "https://up.m1r.ai/upload";
     // const THRESHOLD: usize = 131072; // 128 KiB, see https://github.com/TheQwertiest/foo_discord_rich/pull/37#issuecomment-1464970437.
 
     let input = io::stdin()
@@ -55,9 +55,8 @@ fn main() {
     };
 
     let mut form = Form::new();
-    form.part("reqtype").contents(b"fileupload").add().unwrap();
-    form.part("userhash").contents(b"").add().unwrap();
-    form.part("fileToUpload")
+    form.part("uploadType").contents(b"0").add().unwrap();
+    form.part("file")
         .content_type(&mime_type)
         .buffer(&file_name, image_buffer)
         .add()
